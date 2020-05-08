@@ -5,11 +5,14 @@ function initMap() {
         zoom: 3,
         mapTypeId: "roadmap" // roadmap, satellite, terrain
     });
-    
+}
+
+function addMarkerOnMap(dream) {
     const marker = new google.maps.Marker({
-        position: {lat: 48.858159, lng: 2.294497},
+        position: dream.coordinates,
         map : map,
-        icon: "./images/marker.png"
+        icon: dream.done ? "images/marker_done.png" : "images/marker.png"
     });
 }
-export {initMap};
+
+export {initMap,addMarkerOnMap};
