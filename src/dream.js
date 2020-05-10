@@ -20,7 +20,7 @@ function buildOneDream(dream) {
                       </h4>
                         <img src="${dream.imagePath}" class="card-img-top" alt="Card image cap">
                       <div class="card-body">
-                        <a href="#" class="btn btn-${dream.done?"secondary":"danger"} font-weight-bold btn-block">${dream.done?"Je veux le refaire" :"Je me lance !"}</a>
+                        <a href="#" class="button-action btn btn-${dream.done?"secondary":"danger"} font-weight-bold btn-block">${dream.done?"Je veux le refaire" :"Je me lance !"}</a>
                       </div>
                       <div class="card-footer text-muted text-right">
                         <a href="#" class="button-visit btn btn-outline-secondary btn-sm">Visiter</a>
@@ -39,11 +39,22 @@ function addDreamsListeners(){
            visitDream(item.parentElement.parentElement.getAttribute("id"));
        }); 
     });
+    document.querySelectorAll(".button-action").forEach(item => {
+       item.addEventListener("click", event => {
+           toggleDreamDone(item.parentElement.parentElement.getAttribute("id"));
+           buildAllDreams();
+       }); 
+    });
 }
 
 function visitDream(dreamId) {
     const position = data.filter(item => item.id == dreamId)[0].coordinates;
     visitDreamOnMap(position);
+}
+
+function toggleDreamDone(dreamId) {
+    const dream = data.filter(item => item.id == dreamId)[0];
+    dream.done = !dream.done;
 }
 
 export {buildAllDreams};
